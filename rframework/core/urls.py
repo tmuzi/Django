@@ -38,4 +38,7 @@ urlpatterns = [
 
     # 1 - Serialization
     path("", include("snippets.urls")),
+
+    # 2 - Requests and responses
+    path("", include("snippetstwo.urls")),
 ]
