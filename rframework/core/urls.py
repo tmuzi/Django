@@ -41,4 +41,7 @@ urlpatterns = [
 
     # 2 - Requests and responses
     path("", include("snippetstwo.urls")),
+
+    # 3 - Class based view
+    path("", include("snippetsthree.urls")),
 ]
