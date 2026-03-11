@@ -1,0 +1,15 @@
+# 1 - Serialization
+curl http://localhost:8000/snippets
+
+###
+curl http://localhost:8000/snippets/1
+
+###
+curl -X POST http://localhost:8000/snippets/ \
+    -H 'Content-Type: application/json' \
+    -d '{"code":"print(\"hello world\")"}'
+
+###
+curl -X PUT http://localhost:8000/snippets/2/ \
+    -H 'Content-Type: application/json' \
+    -d '{"code":"print(\"hello world updated\")"}'
