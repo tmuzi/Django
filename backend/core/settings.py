@@ -27,101 +27,105 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY', default='django-insecure-j!7mj7np1-a=0=k=x8491@fpg+l76ry-!ss*yy0m#gx8umh7^6')
+SECRET_KEY = env(
+    "SECRET_KEY",
+    default="django-insecure-j!7mj7np1-a=0=k=x8491@fpg+l76ry-!ss*yy0m#gx8umh7^6",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=True)
+DEBUG = env.bool("DEBUG", default=True)
 
 # default allowed hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-env_hosts = env('ALLOWED_HOSTS', default='')
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+env_hosts = env("ALLOWED_HOSTS", default="")
 
 if env_hosts:
-    ALLOWED_HOSTS += [host for host in env_hosts.split(',') if host]
+    ALLOWED_HOSTS += [host for host in env_hosts.split(",") if host]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'whitenoise.runserver_nostatic',  # for serving static files in production
-    'rest_framework',
-    'corsheaders',  # CORS support for API access from frontend
-    'api',
-    'djoser',
-    'rest_framework_simplejwt.token_blacklist',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic",  # for serving static files in production
+    "rest_framework",
+    "corsheaders",  # CORS support for API access from frontend
+    "api",
+    "djoser",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # must be high in the stack
-    'django.middleware.security.SecurityMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # must be high in the stack
+    "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 # CORS settings - during development allow the frontend dev server
 # In production you should restrict these via environment variables
 # CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [ 'http://localhost:3000', ]
-env_allowed_origins = env('CORS_ALLOWED_ORIGINS', default='')
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+env_allowed_origins = env("CORS_ALLOWED_ORIGINS", default="")
 
 if env_allowed_origins:
-    CORS_ALLOWED_ORIGINS += [origin for origin in env_allowed_origins.split(',') if origin]
+    CORS_ALLOWED_ORIGINS += [
+        origin for origin in env_allowed_origins.split(",") if origin
+    ]
 
 
-
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-remote = env('REMOTE_DB', default=False)
+remote = env("REMOTE_DB", default=False)
 if remote:
-    db_url = env('DATABASE_URL', default=None)  # Get raw string instead
+    db_url = env("DATABASE_URL", default=None)  # Get raw string instead
 
     if db_url:
-        DATABASES = {
-            'default': dj_database_url.parse(db_url, conn_max_age=600)
-        }
+        DATABASES = {"default": dj_database_url.parse(db_url, conn_max_age=600)}
     else:
-        raise ValueError("DATABASE_URL environment variable not set for remote database configuration.")
+        raise ValueError(
+            "DATABASE_URL environment variable not set for remote database configuration."
+        )
 
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 
@@ -132,16 +136,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles", "static")
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -149,9 +153,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -161,12 +165,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -181,15 +185,15 @@ SIMPLE_JWT = {
 # Email Configuration - Brevo (Sendinblue) SMTP
 # Set USE_CONSOLE_EMAIL=True in .env for development to print emails to console
 # Commented out for now - email not working
-if env.bool('USE_CONSOLE_EMAIL', default=True):
+if env.bool("USE_CONSOLE_EMAIL", default=True):
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = env('EMAIL_HOST', default='')
+    EMAIL_HOST = env("EMAIL_HOST", default="")
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 
 # DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='noreply@localhost')
 
@@ -203,6 +207,8 @@ DJOSER = {
 
 SITE_NAME = env("SITE_NAME", default="DjangoNext")
 
-DOMAIN = env('FRONTEND_EMAIL_VERIFICATION_DOMAIN', default='localhost:3000')  # Frontend domain for email links
+DOMAIN = env(
+    "FRONTEND_EMAIL_VERIFICATION_DOMAIN", default="localhost:3000"
+)  # Frontend domain for email links
 
 print("Remote DB:", remote)
