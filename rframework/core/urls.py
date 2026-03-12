@@ -50,4 +50,7 @@ urlpatterns = [
 
     # 5 - Relationships and hyperlinked APIs
     path("", include("snippetsfive.urls")),
+
+    # 6 - Viewsets and routers
+    path("", include("snippetssix.urls")),
 ]
