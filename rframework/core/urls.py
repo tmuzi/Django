@@ -32,7 +32,7 @@ router.register(r"users", views.UserViewSet)
 router.register(r"groups", views.GroupViewSet)
 
 urlpatterns = [
-    # path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 
@@ -44,4 +44,7 @@ urlpatterns = [
 
     # 3 - Class based view
     path("", include("snippetsthree.urls")),
+
+    # 4 - Authentication and Permissions
+    path("", include("snippetsfour.urls")),
 ]

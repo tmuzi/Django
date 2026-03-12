@@ -1,5 +1,5 @@
-from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from snippetsthree.models import Snippet
+from snippetsthree.serializers import SnippetSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView

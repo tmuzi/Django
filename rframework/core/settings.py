@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'snippets',
     'snippetstwo',
     'snippetsthree',
+    'snippetsfour',
 ]
 
 MIDDLEWARE = [
