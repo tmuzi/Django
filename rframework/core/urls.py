@@ -33,7 +33,7 @@ router.register(r"groups", views.GroupViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include(router.urls)),
+    # path("", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 
     # 1 - Serialization
@@ -47,4 +47,7 @@ urlpatterns = [
 
     # 4 - Authentication and Permissions
     path("", include("snippetsfour.urls")),
+
+    # 5 - Relationships and hyperlinked APIs
+    path("", include("snippetsfive.urls")),
 ]

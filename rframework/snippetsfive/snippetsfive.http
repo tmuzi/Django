@@ -1,0 +1,26 @@
+# 1 - Serialization
+curl http://localhost:8000/snippets/v5
+
+###
+curl http://localhost:8000/snippets/v5 \
+    -H 'Accept: text/html'
+
+###
+curl http://localhost:8000/snippets/v5/1
+
+###
+curl -X POST http://localhost:8000/snippets/v5/ \
+    -u 'admin:adminpassword' \
+    -H 'Content-Type: application/json' \
+    -d '{"code":"print(\"hello world\")"}'
+
+###
+curl -X PUT http://localhost:8000/snippets/v5/2/ \
+    -u 'admin:adminpassword' \
+    -H 'Content-Type: application/json' \
+    -d '{"code":"print(\"hello world updated\")"}'
+
+# Users
+###
+curl http://localhost:8000/users/v5/ \
+    -u 'admin:adminpassword'
